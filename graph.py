@@ -1,3 +1,4 @@
+from __future__ import division
 import numpy as np
 from numpy import sum
 from helpers import *
@@ -8,17 +9,18 @@ class Graph():
         self.g = g
         self.vertexes = np.arange(len(self.g))
 
-    def addiction(self, arr):
-        return np.setdiff1d(self.vertexes, arr)
+    def addiction(self, genotype):
+        return np.setdiff1d(self.vertexes, x_f(genotype))
     
     def fitness_function(self, genotype):
         U = x_f(genotype)
-        V = x_f(self.addiction(genotype))
+        V = self.addiction(genotype)
+        
         weight = 0
 
         for u in U:
             for v in V:
-                weight = weight + self.g[u][v]
+                weight += self.g[u][v]
 
         return weight
     
@@ -37,9 +39,9 @@ class Graph():
                 likelihood_array[i] = likelihood_array[i] + likelihood_array[i - 1]
         rand_float = random()
 
+        
         for i in range(gen_len - 1):
             if rand_float > likelihood_array[i] and rand_float < likelihood_array[i + 1]:
                 return generation[i]
 
         return generation[gen_len - 1]
-

@@ -1,7 +1,6 @@
 import numpy as np
 from numpy import sum
 
-
 def crossingover_coord(vec_len, p_c):
     for i in range(vec_len):
         r = random()
@@ -24,7 +23,13 @@ def generate_individual(length):
 def init_first_generation(vec_length, ind_amount):
     generation = np.empty([ind_amount, vec_length])
     for i in range(ind_amount):
-        generation[i] = generate_individual(vec_length)
+        genotype = generate_individual(vec_length)
+
+        # TODO implement more stable regeneration
+        if len(np.argwhere(genotype > 0)) == 0:
+            genotype = generate_individual(vec_length)
+
+        generation[i] = genotype
 
     return generation
 
@@ -50,4 +55,3 @@ def mutate(individual, p_m):
             mutated[i] = individual[i]
 
     return mutated
-
