@@ -1,5 +1,5 @@
 import numpy as np
-from numpy import sum
+import time
 
 def crossingover_coord(vec_len, p_c):
     for i in range(vec_len):
@@ -9,16 +9,20 @@ def crossingover_coord(vec_len, p_c):
 
     return vec_len - 1
 
+
 def x_f(genotype):
     return np.argwhere(genotype).flatten()
 
+
 def random():
     return np.random.rand()
+
 
 def generate_individual(length):
     vec = np.random.randint(2, size=length)
 
     return vec
+
 
 def init_first_generation(vec_length, ind_amount):
     generation = np.empty([ind_amount, vec_length])
@@ -32,6 +36,7 @@ def init_first_generation(vec_length, ind_amount):
         generation[i] = genotype
 
     return generation
+
 
 def crossingover(first_ancestor, second_ancestor, p_c):
     vec_len = len(first_ancestor)

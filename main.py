@@ -2,31 +2,33 @@ from __future__ import division
 import numpy as np
 import time
 import matplotlib.pyplot as plt
-from numpy import sin, abs, max
-from helpers import init_first_generation, mutate, x_f, crossingover
+from numpy import  max
+from helpers import init_first_generation, mutate, crossingover
 from generate_random_graph import generate_random_graph
 from graph import Graph
+
 
 start_time = time.time()
 # Initial params
 
 # t - iteration maximum
-tmax = 20
+tmax = 10
 # N - individuals amount in generation.
-N = 100
+N = 20
 
-graph_size = 40
+graph_size = 100
 # P_c - crossingover likelihood
 p_c = 0.3
 # P_m - mutation likelihood
 p_m = 0.2
 
 # graph = Graph([
-    # [0, 19, 32, 11],
-    # [19, 0, 5, 8],
-    # [32, 5, 0, 1],
-    # [11, 8, 1, 0]
+#     [0, 19, 32, 11],
+#     [19, 0, 5, 8],
+#     [32, 5, 0, 1],
+#     [11, 8, 1, 0]
 # ])
+
 graph = Graph(generate_random_graph(graph_size))
 l = len(graph.g)
 
@@ -42,7 +44,9 @@ for t in range(tmax):
         first_ancestor = graph.selection(current_generation)
         second_ancestor = graph.selection(current_generation)
 
+        # t1 = time.time()
         crossed_first_ancestor, crossed_second_ancestor = crossingover(first_ancestor, second_ancestor, p_c)
+        # print "iterated mutated time = {}".format(time.time() - t1)
 
         mutated_first_ancestor = mutate(crossed_first_ancestor, p_m)
         mutated_second_ancestor = mutate(crossed_second_ancestor, p_m)
