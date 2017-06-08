@@ -1,5 +1,6 @@
 from __future__ import division
 from helpers import *
+from numpy import random
 
 class Graph():
     def __init__(self, g):
@@ -20,27 +21,11 @@ class Graph():
                 weight += self.g[u][v]
 
         return weight
-    
-    def p_s(self, generation, ind_index):
-        selected_ind = generation[ind_index]
-        all_probs = [self.fitness_function(ind) for ind in generation]
-        likelihood = self.fitness_function(selected_ind) / sum(all_probs)
-
-        return likelihood
 
     def selection(self, generation):
         gen_len = len(generation)
-        likelihood_array = [self.p_s(generation, i) for i in range(gen_len)]
-        rand_float = random()
 
-        for i in range(gen_len):
-            if i != 0:
-                likelihood_array[i] = likelihood_array[i] + likelihood_array[i - 1]
-            if rand_float > likelihood_array[i - 1] and rand_float < likelihood_array[i]:
-                return generation[i]
+        first_gen = generation[int(gen_len * random.random())]
+        second_gen = generation[int(gen_len * random.random())]
 
-        # for i in range(gen_len - 1):
-        #     if rand_float > likelihood_array[i] and rand_float < likelihood_array[i + 1]:
-        #         return generation[i]
-
-        return generation[gen_len - 1]
+        return first_gen if self.fitness_function(first_gen) > self.fitness_function(second_gen) else second_gen
