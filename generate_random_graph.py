@@ -15,7 +15,7 @@ def generate_random_graph(size, write_in_file=False):
             if i != j and j > i:
                 r[i][j] = r[j][i] = random()
 
-    if write_in_file == True:
+    if write_in_file:
         np.savetxt('graph.txt', r, fmt='%.2d')
 
     return r

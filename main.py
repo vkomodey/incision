@@ -20,7 +20,7 @@ graph_size = 50
 # P_c - crossingover likelihood
 p_c = 0.1
 # P_m - mutation likelihood
-p_m = 0.1
+p_m = 0.3
 
 # graph = Graph([
 #     [0, 19, 32, 11],
@@ -29,7 +29,7 @@ p_m = 0.1
 #     [11, 8, 1, 0]
 # ])
 
-# graph = Graph(generate_random_graph(graph_size))
+# graph = Graph(generate_random_graph(graph_size, True))
 loaded_matrix = np.loadtxt('graph.txt', dtype=int)
 graph = Graph(loaded_matrix)
 
